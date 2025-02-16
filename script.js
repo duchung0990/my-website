@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const contentData = [
         {
-            media: '<img src="../home/2.1.jpg" alt="Liver Cancer Research" class="media">',
+            media: '<img src="home/2.1.jpg" alt="Liver Cancer Research" class="media">',
             title: "Tree Planting Festival in Vietnam",
             text: `<p><strong>The Meaning and Importance:</strong>  
                 Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
