@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Health Sciences</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .section {
+            padding: 15px;
+            margin: 0; /* Xóa khoảng cách giữa các phần */
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+            text-align: center;
+        }
+        /* Giữ nguyên màu sắc */
+        .title {
+            background-color: #ADD8E6; /* Màu xanh da trời nhạt */
+            font-weight: bold;
+        }
+        .context {
+            background-color: #87CEEB; /* Màu xanh da trời đậm hơn */
+        }
+        /* Khi hover vào 1 chỗ, cả 2 cùng to và sáng lên */
+        .content-box:hover .title,
+        .content-box:hover .context {
+            transform: scale(1.05);
+            filter: brightness(1.2); /* Làm sáng hơn */
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+        /* Header */
+        header {
+            position: relative;
+            height: 80vh; /* Giữ nguyên chiều cao của header */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Ẩn các phần background vượt ra ngoài */
+        }
+        .header-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+       
+        .dots-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: white;
+        }
+        .header-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo video phủ đầy khung và không méo hình */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* Góc phải trên cùng */
+        .header-top {
+            position: absolute;
+            top: 10px;
+            right: 150px; /* Dịch chuyển vào bên trái thêm */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-top input[type="text"] {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .header-top select {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        .header-top button {
+            padding: 5px 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #004F9F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-top button:hover {
+            background-color: #003D7F;
+        }
+        header h1 {
+            z-index: 1;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header p {
+            z-index: 1;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        nav {
+            background-color: #004F9F;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+            margin: 0 auto; /* Căn giữa */
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%; /* Đảm bảo menu con nằm trong khung 80% */
+            justify-content: space-around; /* Phân bổ đều khoảng cách giữa các mục */
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: #005BB5;
+            border-radius: 5px;
+        }
+        /* Academic Section */
+        .academic-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px auto;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+            padding-bottom: 0cm !important;
+            margin-bottom: 0 !important;
+
+        }
+        .academic-container a {
+            text-decoration: none; /* Loại bỏ gạch chân */
+            color: inherit; /* Giữ nguyên màu chữ gốc */
+        }
+        .academic-item {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .academic-item:hover {
+            transform: scale(1.1);
+            background-color: #B0E0E6; /* Màu nền sáng hơn khi hover */
+        }
+        .academic-item img {
+            width: 100%;
+            max-width: 311px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .academic-item h3 {
+            background-color: transparent !important; /* Xóa màu nền xanh nhạt */
+            color: rgb(21, 27, 114) !important; /* Đảm bảo chữ màu đen */
+            padding: 10px 0; /* Để giữ khoảng cách nếu cần */
+        }
+        /* Content Section */
+        .content-section {
+            width: calc(100% - 6cm); /* Giảm mỗi bên 2cm */
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 0;
+            background: none !important;
+            position: relative; /* Quan trọng để nút điều hướng hoạt động */
+        }
+        .media-wrapper {
+            width: 100%;
+            height: 300px; /* Giữ nguyên kích thước ảnh */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .content-left {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .content-right {
+            width: 50%; /* Đảm bảo không bị phóng to quá mức */
+            flex: 1;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .content-box {
+            width: 100%;
+            background: none !important; /* Loại bỏ lớp nền trắng */
+            box-shadow: none !important; /* Không còn bóng xung quanh */
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important; /* Loại bỏ viền nếu có */
+        }
+        .content-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #004F9F;
+            margin-bottom: 10px;
+        }
+        .content-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #004F9F;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .read-more:hover {
+            background-color: #003D7F;
+        }
+        /* News Section */
+        .news-section {
+            max-width: calc(100% - 6cm); /* Trừ 4cm như logo + thêm 2cm (1cm mỗi bên) */
+            margin-left: 3cm;
+            margin-right: 3cm;
+            background-color: #f0f0f0;
+            padding: 0; /* Xóa khoảng cách trên/dưới */
+            text-align: center;
+            line-height: 1; /* Đảm bảo dòng không bị thưa */
+        }
+        .news-section h2 {
+            font-size: 24px;
+            color: #003D7F;
+            margin-bottom: 20px;
+        }
+        /*hiển thị 5 ảnh ở new &event */
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px; /* Khoảng cách giữa các ảnh */
+        }
+        .news-item {
+            flex: 1;
+            text-align: center;
+        }
+        .news-item img {
+            width: 100%; /* Tự động điều chỉnh chiều ngang */
+            height: 200px; /* Đặt chiều cao cố định để đồng nhất */
+            object-fit: cover; /* Cắt ảnh theo khung mà không làm méo */
+        }
+        .news-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .news-item h3 {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .news-item p {
+            font-size: 14px;
+            padding: 10px;
+            color: #333;
+            margin: 0;
+            text-align: left;
+        }
+        .news-button {
+            display: inline-block; /* Giữ kích thước vừa đủ chữ */
+            padding: 5px 10px; /* Điều chỉnh padding nhỏ hơn */
+            text-align: center;
+            background-color: #0a8923;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            border: none;
+            margin-top: 0 !important; /* Xóa khoảng cách trên nút */
+        }
+        .news-button:hover {
+            background-color: #12a637;
+        }
+        /*css menu*/
+        /*đoạn màu chữ và canh chữ thanh tiêu đề*/
+        .nav-menu {
+            display: flex;
+            justify-content: flex-end; /* Căn phải */
+            padding-right: 0.2cm; /* Cách lề phải 0.2cm */
+        }
+        .dropdown {
+            margin-right: 0.5cm; /* Khoảng cách giữa các mục menu */
+            position: relative;
+            white-space: nowrap; /* Ngăn ngừa xuống dòng */
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0552a4; /* Màu xanh dương nhạt */
+            list-style: none;
+            padding: 5px 0;
+            min-width: max-content; /* Đảm bảo không wrap text */
+            white-space: nowrap; /* Không xuống dòng nếu quá dài */
+        }
+        .dropdown-menu li {
+            padding: 5px 15px;
+        }
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            display: block;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .nav-menu a {
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+
+        }
+        .academic-container:hover, 
+        .academic-container:hover * {
+            background-color: white !important;
+        }
+        section:hover, 
+        section:hover * {
+            background-color: white !important;
+        }
+        /*rê chuột vào new &envent sẽ sáng và to hơn*/
+        .news-events-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .news-events-item:hover {
+            transform: scale(1.05); /* Phóng to nhẹ */
+            background-color: rgba(255, 255, 255, 0.9); /* Làm sáng nền */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng nổi bật */
+        }
+        /* Điều chỉnh logo trước footer */
+        .logo-container img {
+            width: calc(100% + 1cm); /* Tăng chiều rộng thêm 1cm */
+            max-width: 100%; /* Không vượt quá kích thước banner */
+            height: auto; /* Giữ tỷ lệ ảnh */
+            object-fit: contain;
+        }
+        .content-box {
+            padding: 20px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Đảm bảo các góc vuông */
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .context p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .context {
+            width: 100%;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: none !important;
+            border: none !important;
+        }
+        /* Khi hover vào .content-box, cả title và context đều sáng lên */
+        .content-box:hover .title, 
+        .content-box:hover .context {
+            background-color: #5daee5; /* Màu sáng hơn để làm nổi bật */
+        }
+        @font-face {
+            font-family: "Copperplate Gothic Light";
+            src: url("../fonts/copperplate-gothic-light.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+        h2,h3,h4,h5 {
+            font-family: "Copperplate Gothic Light", sans-serif;
+        }
+        .logo-container {
+            margin-bottom: 0 !important; /* Xóa khoảng trống dưới ảnh */
+            padding-bottom: 0 !important; /* Đảm bảo không có padding thừa */
+        }
+        /* Nút điều hướng */
+        #prev, #next {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #prev:hover, #next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        /* Chấm tròn trạng thái */
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            border: 2px solid gray;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: green;
+        }
+        /* Ảnh ghim bên phải */
+        #floating-image {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: auto;
+            z-index: 20;
+            background: transparent; /* Đảm bảo nền trong suốt */
+            transition: filter 0.3s ease-in-out; /* Hiệu ứng mượt khi hover */
+        }
+        /* chuyển hiệu ứng sáng khi rê chuột vào chat AI... */
+        #floating-image {
+            transition: filter 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        #floating-image:hover {
+            filter: brightness(1.1); /* Làm tối ảnh */
+            animation: glow-border 1s infinite alternate; /* Kích hoạt hiệu ứng viền sáng */
+        }
+        /* Hiệu ứng viền sáng nhấp nháy từ trắng sang đỏ */
+        @keyframes glow-border {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Chuyển sang màu đỏ */
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            }
+        }
+        /* Phần css điều chỉnh slide banner  */
+        /* Nút điều hướng */
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        #prev {
+            left: 10px;
+        }
+        #next {
+            right: 10px;
+        }
+        #prev-content {
+            left: 10px; /* Giữ nút bên trái trong khoảng hợp lý */
+        }
+        #next-content {
+            right: 10px; /* Giữ nút bên phải trong khoảng hợp lý */
+        }
+        #prev { left: 15px; }  
+        #next { right: 15px; }
+        /* Chấm nhỏ dưới ảnh */
+        .dot-container {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background-color: green;
+        }
+        #floating-image {
+            background: transparent; /* Đảm bảo nền trong suốt */
+        }
+        #slider-container {
+            width: 100%;
+            height: calc(100vh - 2cm); /* Giảm 2cm so với chiều cao màn hình */
+            overflow: hidden;
+            position: relative;
+        }
+        #slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        #slider img {
+            width: 100vw; /* Ảnh lấp đầy toàn bộ chiều ngang màn hình */
+            height: calc(100% - 2cm); /* Thu nhỏ chiều cao 2cm */
+            object-fit: cover; /* Giữ đúng tỷ lệ, không méo ảnh */
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ảnh ghim bên phải -->
+    <img src="./remove.png" id="floating-image" alt="AI Image">
+    <!-- Slider -->
+    <div id="slider-container">
+        <div id="slider">
+            <img src="./bn1.png" alt="Slide 1">
+            <img src="./bn2.jpg" alt="Slide 2">
+            <img src="./bn3.jpg" alt="Slide 3">
+            <img src="./bn4.jpg" alt="Slide 4">
+            <img src="./bn1.png" alt="Slide 5">
+        </div>
+        <!-- Nút điều hướng -->
+        <button id="prev" class="nav-button">❮</button>
+        <button id="next" class="nav-button">❯</button>
+        <!-- Chấm nhỏ dưới ảnh -->
+        <div class="dot-container"></div>
+        <div class="header-top">
+            <input type="text" placeholder="Search ...">
+            <select>
+                <option>VI</option>
+                <option>EN</option>
+            </select>
+            <button>Login</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentIndex = 0;
+            const slides = document.querySelectorAll("#slider img");
+            const totalSlides = slides.length;
+            const slider = document.getElementById("slider");
+            const dotsContainer = document.querySelector(".dot-container");
+            // Tạo chấm nhỏ dưới ảnh
+            dotsContainer.innerHTML = ""; 
+            for (let i = 0; i < totalSlides; i++) {
+                let dot = document.createElement("div");
+                dot.classList.add("dot");
+                if (i === 0) dot.classList.add("active");
+                dotsContainer.appendChild(dot);
+            }
+            const dots = document.querySelectorAll(".dot");
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+                dots.forEach(dot => dot.classList.remove("active"));
+                dots[currentIndex].classList.add("active");
+            }
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider();
+            }
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            }
+            document.getElementById("prev").addEventListener("click", prevSlide);
+            document.getElementById("next").addEventListener("click", nextSlide);
+            // Tự động chạy ảnh sau 3 giây-2cm
+            let slideInterval = setInterval(nextSlide, 3000);
+            // Khi bấm vào chấm nhỏ, chuyển đến ảnh tương ứng
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    currentIndex = index;
+                    updateSlider();
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 3000);
+                });
+            });
+        });
+    </script>        
+    <!-- Navigation -->
+    <nav class="nav-menu">
+        <div class="dropdown">
+            <a href="../AboutUHS/AboutUHS.html">About UHS</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">Vision & Mission</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Academics/Academics.html">Academics</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Admissions</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+                <li><a href="#">Admission and Registration</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Student life/Student life.html">Student </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+                <li><a href="#">Affiliated Programme</a></li>
+                <li><a href="#">Exchange Programme</a></li>
+                <li><a href="#">Education Resources</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Library & Resources</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Research</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">CGRH</a></li>
+                <li><a href="#">VNUHCM Journal of Health Sciences</a></li>
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">International Relations</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../News&Events/UHS News & Events.html">News & Events</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Academic Section -->
+    <div class="section">
+        <div class="academic-container">
+            <div class="academic-item">
+                <a href="../Academics/Academics.html">
+                    <img src="../home/1.1.jpg" alt="Academic">
+                    <h3>Academic</h3>
+                </a>
+            </div>
+            <div class="academic-item">
+                <a href="#">
+                    <img src="../home/1.2.jpg" alt="Research & Faculty">
+                    <h3>Research & Faculty</h3>
+                </a>
+            </div>
+            <div class="academic-item">
+                <a href="#">
+                    <img src="../home/rs.png" alt="Library and Resources">
+                    <h3>LIBRARY & RESOURCES</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+        <!-- Nút điều hướng trái -->
+        <button id="prev-content" class="nav-button">❮</button>
+        <!-- Vùng hiển thị ảnh hoặc video -->
+        <div class="content-left">
+            <div id="media-container" class="media-wrapper">
+                <img src="../home/2.1.jpg" alt="Liver Cancer Research" class="media">
+            </div>
+        </div>
+        <!-- Vùng hiển thị nội dung văn bản -->
+        <div class="content-right">
+            <div id="text-container" class="content-box">
+                <div class="title">Tree Planting Festival in Vietnam</div>
+                <div class="context">
+                    <p><strong>The Meaning and Importance:</strong>  
+                        Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
+                        Held at the beginning of the Lunar New Year, this festival encourages people across the country to plant trees, aiming to protect the environment and promote sustainable development.</p>                    
+                </div>
+            </div>
+        </div>
+        <!-- Nút điều hướng phải -->
+        <button id="next-content" class="nav-button">❯</button>
+    </div>
+    <script>
+        const mediaContainer = document.getElementById("media-container");
+        const textContainer = document.getElementById("text-container");
+        const prevButton = document.getElementById("prev-content");
+        const nextButton = document.getElementById("next-content");
+
+        const contentData = [
+            {
+                media: '<img src="../home/2.1.jpg" alt="Liver Cancer Research" class="media">',
+                title: "Tree Planting Festival in Vietnam",
+                text: `<p><strong>The Meaning and Importance:</strong>  
+                    Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
+                    Held at the beginning of the Lunar New Year, this festival encourages people across the country to plant trees,  
+                    aiming to protect the environment and promote sustainable development.</p>`
+            },
+            {
+                media: `<iframe class="media" 
+                    src="https://www.youtube.com/embed/bhj0qoKv4ew?autoplay=1&mute=1&rel=0" 
+                    frameborder="0" allowfullscreen></iframe>`,
+                title: "Breakthrough in Cancer Treatment",
+                text: `<p><strong>New Discoveries in Oncology:</strong>  
+                    Scientists have made a breakthrough in cancer research, focusing on liver cancer treatments.  
+                    New therapies have shown promising results in clinical trials, providing hope for millions of patients worldwide.</p>`
+            }
+        ];
+        currentIndex = 0;
+        function updateContent() {
+            mediaContainer.innerHTML = contentData[currentIndex].media;
+            textContainer.innerHTML = `
+                <div class="content-box">
+                    <div class="title">${contentData[currentIndex].title}</div>
+                    <div class="context">${contentData[currentIndex].text}</div>
+                </div>
+            `;
+        }
+        // Chuyển đổi thủ công bằng nút bấm
+        function nextContent() {
+            currentIndex = (currentIndex + 1) % contentData.length;
+            updateContent();
+        }
+        function prevContent() {
+            currentIndex = (currentIndex - 1 + contentData.length) % contentData.length;
+            updateContent();
+        }
+        // Gán sự kiện cho nút điều hướng
+        nextButton.addEventListener("click", nextContent);
+        prevButton.addEventListener("click", prevContent);
+        // Tự động chuyển đổi sau mỗi 3 giây
+        setInterval(nextContent, 3000);
+    </script>
+    <br>
+    <!-- News Section -->
+    <div class="news-section">
+        <br>
+        <h2 style="line-height: 1; margin-bottom: 0;">NEWS & EVENTS</h2>
+        <br>
+        <div class="news-container">
+            <div class="news-item">
+                <a href="../home1/home1.html">
+                    <img src="../home/th.jpg" alt="News 1">
+                </a>
+                <p style="line-height: 1; margin: 0;">VNU-HCM proposes solutions to develop science and technology, innovation and high-quality human resources</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/gs.jpg" alt="News 2">
+                <p style="line-height: 1; margin: 0;"> Vietnam National University-HCM promulgates the Visiting Professor Program</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/thh.jfif" alt="News 3">
+                <p style="line-height: 1; margin: 0;">VNU-HCM commented on the draft Law on Science, Technology and Innovation</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/3.4.jpg" alt="News 4">
+                <p style="line-height: 1; margin: 0;">International seminar: "Updates on new gastrointestinal surgery methods"</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/3.5.jpg" alt="News 5">
+                <p style="line-height: 1; margin: 0;">International seminar: "Updates on new gastrointestinal surgery methods"</p>
+            </div>
+        </div>
+        <br>
+        <a href="#" class="news-button" style="margin-top: 0 !important;">More UHS News</a>
+    </div>
+    <!-- befor Footer -->
+    <section style="background-color: #ffffff; padding: 30px 0; text-align: center;">
+        <!-- Logo container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 90%; margin: 10px auto;">
+            <!-- Row 1 -->
+            <div class="logo-container" style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 0; padding: 0;">
+                <img src="../home/caclogo.png" alt="VNU Logo" class="logo" 
+                    style="max-width: calc(100% - 4cm); margin-left: 3.5cm; margin-right: 3.5cm;">
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer style="background-color: #003366; color: white; padding: 40px 20px; margin-left: 3.5cm; margin-right: 3.5cm;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <!-- Logo and Address -->
+            <div style="flex: 1; min-width: 300px; margin-bottom: 20px; font-size: 12px;">
+                <img src="../News&Events/logo2.jpg" alt="University Logo" style="width: 250px; margin-bottom: 20px;">
+                <p>
+                    <strong>University of Health Sciences</strong><br>
+                    YAI Administration Building,<br>
+                    National University Ho Chi Minh Urban Area,<br>
+                    Hai Thuong Lan Ong Street,<br>
+                    Dong Hoa, Di An, Binh Duong, Vietnam.<br>
+                    (028) 7102 1212 (Administration)<br>
+                    (028) 7101 8787 (Admissions)
+                </p>
+                <!-- Social Media Icons -->
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="../News&Events/hhhhh.png" alt="Facebook" style="width: 200px;">
+                    </a>
+                </div>
+            </div>
+            <!-- Navigation Links -->
+            <div style="flex: 2; min-width: 600px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                <!-- Explore Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Explore</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">News</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Careers</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Colleges</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Campuses</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Student Support Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Student Support</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Registrar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Bursar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Student Affairs</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Housing and Food Services</a></li>
+                    </ul>
+                </div>
+                <!-- Quick Links Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Quick Links</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Maps</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Directory</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Libraries</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Academic Calendar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Health</a></li>
+                    </ul>
+                </div>
+                <!-- Resources Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Resources</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Prospective Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Current Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">International Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Visitors and Military</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Faculty and Staff</a></li>
+                    </ul>
+                </div>
+                <!-- Stay Connected Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Stay Connected</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Email / Hotlines</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Emergency Notifications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Go</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Strategic Communications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Police</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #004080; padding-top: 20px; font-size: 12px;">
+            <p>Copyright © 2024 by University of Health Sciences. All rights reserved.</p>
+        </div>
+    </footer>    
+</html>
