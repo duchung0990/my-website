@@ -54,25 +54,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const nextButton = document.getElementById("next-content");
 
     const contentData = [
-    {
-        media: '<img src="home/2.1.jpg" alt="Liver Cancer Research" class="media">',
-        title: "Tree Planting Festival in Vietnam",
-        text: `<p><strong>The Meaning and Importance:</strong>  
-            Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
-            Held at the beginning of the Lunar New Year, this festival encourages people across the country to plant trees,  
-            aiming to protect the environment and promote sustainable development.</p>`
-    },
-    {
-        media: `<iframe class="media" 
-            src="https://www.youtube.com/embed/bhj0qoKv4ew?autoplay=1&mute=1&rel=0" 
-            frameborder="0" allowfullscreen></iframe>`,
-        title: "Breakthrough in Cancer Treatment",
-        text: `<p><strong>New Discoveries in Oncology:</strong>  
-            Scientists have made a breakthrough in cancer research, focusing on liver cancer treatments.  
-            New therapies have shown promising results in clinical trials, providing hope for millions of patients worldwide.</p>`
-    }
-];
-
+        {
+            media: '<img src="home/2.1.jpg" alt="Liver Cancer Research" class="media">',
+            title: "Tree Planting Festival in Vietnam",
+            text: `<p><strong>The Meaning and Importance:</strong>  
+                Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
+                Held at the beginning of the Lunar New Year, this festival encourages people across the country to plant trees,  
+                aiming to protect the environment and promote sustainable development.</p>`
+        },
+        {
+            media: `<iframe class="media" 
+                src="https://www.youtube.com/embed/bhj0qoKv4ew?autoplay=1&mute=1&rel=0" 
+                frameborder="0" allowfullscreen></iframe>`,
+            title: "Breakthrough in Cancer Treatment",
+            text: `<p><strong>New Discoveries in Oncology:</strong>  
+                Scientists have made a breakthrough in cancer research, focusing on liver cancer treatments.  
+                New therapies have shown promising results in clinical trials, providing hope for millions of patients worldwide.</p>`
+        }
+    ];
     
     let contentIndex = 0;
     function updateContent() {
