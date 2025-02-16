@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Health Sciences</title>    
+</head>
+<body>
+    <!-- Ảnh ghim bên phải -->
+    <img src="./remove.png" id="floating-image" alt="AI Image">
+    <!-- Slider -->
+    <div id="slider-container">
+        <div id="slider">
+            <img src="./bn1.png" alt="Slide 1">
+            <img src="./bn2.jpg" alt="Slide 2">
+            <img src="./bn3.jpg" alt="Slide 3">
+            <img src="./bn4.jpg" alt="Slide 4">
+            <img src="./bn1.png" alt="Slide 5">
+        </div>
+        <!-- Nút điều hướng -->
+        <button id="prev" class="nav-button">❮</button>
+        <button id="next" class="nav-button">❯</button>
+        <!-- Chấm nhỏ dưới ảnh -->
+        <div class="dot-container"></div>
+        <div class="header-top">
+            <input type="text" placeholder="Search ...">
+            <select>
+                <option>VI</option>
+                <option>EN</option>
+            </select>
+            <button>Login</button>
+        </div>
+    </div>
+            
+    <!-- Navigation -->
+    <nav class="nav-menu">
+        <div class="dropdown">
+            <a href="../AboutUHS/AboutUHS.html">About UHS</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">Vision & Mission</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Academics/Academics.html">Academics</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Admissions</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+                <li><a href="#">Admission and Registration</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Student life/Student life.html">Student </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+                <li><a href="#">Affiliated Programme</a></li>
+                <li><a href="#">Exchange Programme</a></li>
+                <li><a href="#">Education Resources</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Library & Resources</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Research</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">CGRH</a></li>
+                <li><a href="#">VNUHCM Journal of Health Sciences</a></li>
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">International Relations</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../News&Events/UHS News & Events.html">News & Events</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="script.js" defer></script>
+
+    <!-- Academic Section -->
+    <div class="section">
+        <div class="academic-container">
+            <div class="academic-item">
+                <a href="../Academics/Academics.html">
+                    <img src="../home/1.1.jpg" alt="Academic">
+                    <h3>Academic</h3>
+                </a>
+            </div>
+            <div class="academic-item">
+                <a href="#">
+                    <img src="../home/1.2.jpg" alt="Research & Faculty">
+                    <h3>Research & Faculty</h3>
+                </a>
+            </div>
+            <div class="academic-item">
+                <a href="#">
+                    <img src="../home/rs.png" alt="Library and Resources">
+                    <h3>LIBRARY & RESOURCES</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+        <!-- Nút điều hướng trái -->
+        <button id="prev-content" class="nav-button">❮</button>
+        <!-- Vùng hiển thị ảnh hoặc video -->
+        <div class="content-left">
+            <div id="media-container" class="media-wrapper">
+                <img src="../home/2.1.jpg" alt="Liver Cancer Research" class="media">
+            </div>
+        </div>
+        <!-- Vùng hiển thị nội dung văn bản -->
+        <div class="content-right">
+            <div id="text-container" class="content-box">
+                <div class="title">Tree Planting Festival in Vietnam</div>
+                <div class="context">
+                    <p><strong>The Meaning and Importance:</strong>  
+                        Vietnam’s Tree Planting Festival (Tết Trồng Cây) is an annual tradition initiated by President Hồ Chí Minh in 1959.  
+                        Held at the beginning of the Lunar New Year, this festival encourages people across the country to plant trees, aiming to protect the environment and promote sustainable development.</p>                    
+                </div>
+            </div>
+        </div>
+        <!-- Nút điều hướng phải -->
+        <button id="next-content" class="nav-button">❯</button>
+    </div>
+    
+    <br>
+    <!-- News Section -->
+    <div class="news-section">
+        <br>
+        <h2 style="line-height: 1; margin-bottom: 0;">NEWS & EVENTS</h2>
+        <br>
+        <div class="news-container">
+            <div class="news-item">
+                <a href="../home1/home1.html">
+                    <img src="../home/th.jpg" alt="News 1">
+                </a>
+                <p style="line-height: 1; margin: 0;">VNU-HCM proposes solutions to develop science and technology, innovation and high-quality human resources</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/gs.jpg" alt="News 2">
+                <p style="line-height: 1; margin: 0;"> Vietnam National University-HCM promulgates the Visiting Professor Program</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/thh.jfif" alt="News 3">
+                <p style="line-height: 1; margin: 0;">VNU-HCM commented on the draft Law on Science, Technology and Innovation</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/3.4.jpg" alt="News 4">
+                <p style="line-height: 1; margin: 0;">International seminar: "Updates on new gastrointestinal surgery methods"</p>
+            </div>
+            <div class="news-item">
+                <img src="../home/3.5.jpg" alt="News 5">
+                <p style="line-height: 1; margin: 0;">International seminar: "Updates on new gastrointestinal surgery methods"</p>
+            </div>
+        </div>
+        <br>
+        <a href="#" class="news-button" style="margin-top: 0 !important;">More UHS News</a>
+    </div>
+    <!-- befor Footer -->
+    <section style="background-color: #ffffff; padding: 30px 0; text-align: center;">
+        <!-- Logo container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 90%; margin: 10px auto;">
+            <!-- Row 1 -->
+            <div class="logo-container" style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 0; padding: 0;">
+                <img src="../home/caclogo.png" alt="VNU Logo" class="logo" 
+                    style="max-width: calc(100% - 4cm); margin-left: 3.5cm; margin-right: 3.5cm;">
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer style="background-color: #003366; color: white; padding: 40px 20px; margin-left: 3.5cm; margin-right: 3.5cm;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <!-- Logo and Address -->
+            <div style="flex: 1; min-width: 300px; margin-bottom: 20px; font-size: 12px;">
+                <img src="../News&Events/logo2.jpg" alt="University Logo" style="width: 250px; margin-bottom: 20px;">
+                <p>
+                    <strong>University of Health Sciences</strong><br>
+                    YAI Administration Building,<br>
+                    National University Ho Chi Minh Urban Area,<br>
+                    Hai Thuong Lan Ong Street,<br>
+                    Dong Hoa, Di An, Binh Duong, Vietnam.<br>
+                    (028) 7102 1212 (Administration)<br>
+                    (028) 7101 8787 (Admissions)
+                </p>
+                <!-- Social Media Icons -->
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="../News&Events/hhhhh.png" alt="Facebook" style="width: 200px;">
+                    </a>
+                </div>
+            </div>
+            <!-- Navigation Links -->
+            <div style="flex: 2; min-width: 600px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                <!-- Explore Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Explore</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">News</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Careers</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Colleges</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Campuses</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Student Support Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Student Support</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Registrar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Bursar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Student Affairs</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Housing and Food Services</a></li>
+                    </ul>
+                </div>
+                <!-- Quick Links Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Quick Links</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Maps</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Directory</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Libraries</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Academic Calendar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Health</a></li>
+                    </ul>
+                </div>
+                <!-- Resources Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Resources</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Prospective Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Current Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">International Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Visitors and Military</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Faculty and Staff</a></li>
+                    </ul>
+                </div>
+                <!-- Stay Connected Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Stay Connected</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Email / Hotlines</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Emergency Notifications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Go</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Strategic Communications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Police</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #004080; padding-top: 20px; font-size: 12px;">
+            <p>Copyright © 2024 by University of Health Sciences. All rights reserved.</p>
+        </div>
+    </footer>    
+</html>
