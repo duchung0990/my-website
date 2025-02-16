@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Health Sciences</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Căn toàn bộ nội dung về lề phải */
+            width: auto; /* Tự động điều chỉnh theo ảnh 1.1.png */
+            max-width: 50%; /* Giới hạn chiều ngang thu nhỏ */
+            margin-right: 0; /* Canh sát mép phải */
+        }
+        .section {
+            padding: 15px;
+            margin: 0; /* Xóa khoảng cách giữa các phần */
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+            text-align: center;
+        }
+        .title {
+            text-align: right; /* Căn chữ về bên phải */
+            font-size: 16px; /* Thu nhỏ lại */
+            font-weight: bold;
+        }
+        .context {
+            background-color: #87CEEB; /* Xanh da trời đậm hơn */
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+        /* Header */
+        header {
+            position: relative;
+            height: 80vh; /* Giữ nguyên chiều cao của header */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Ẩn các phần background vượt ra ngoài */
+        }
+        .header-container {
+            width: 80%; /* Thu nhỏ chiều ngang */
+            height: 100%; /* Giữ nguyên chiều cao */
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%); /* Căn giữa theo chiều ngang */
+            overflow: hidden; /* Ẩn phần video dư ra ngoài */
+        }
+        .header-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo video phủ đầy khung và không méo hình */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* Góc phải trên cùng */
+        .header-top {
+            position: absolute;
+            top: 10px;
+            right: 150px; /* Dịch chuyển vào bên trái thêm */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-top input[type="text"] {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .header-top select {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        .header-top button {
+            padding: 5px 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #004F9F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-top button:hover {
+            background-color: #003D7F;
+        }
+        header h1 {
+            z-index: 1;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header p {
+            z-index: 1;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        nav {
+            background-color: #004F9F;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+            margin: 0 auto; /* Căn giữa */
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%; /* Đảm bảo menu con nằm trong khung 80% */
+            justify-content: space-around; /* Phân bổ đều khoảng cách giữa các mục */
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: #005BB5;
+            border-radius: 5px;
+        }
+        /* Academic Section */
+        
+        .academic-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px auto;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+        }
+        .academic-item {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .academic-item:hover {
+            transform: scale(1.1);
+            background-color: #B0E0E6; /* Màu nền sáng hơn khi hover */
+        }
+        .academic-item img {
+            width: 100%;
+            max-width: 311px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .academic-item h3 {
+            background-color: transparent !important; /* Xóa màu nền xanh nhạt */
+            color: black !important; /* Đảm bảo chữ màu đen */
+            padding: 10px 0; /* Để giữ khoảng cách nếu cần */
+        }
+
+        /* Content Section */
+        .content-section {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            margin: 40px auto;
+            width: 80%;
+        }
+        .content-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .content-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .content-right {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .content-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #004F9F;
+            margin-bottom: 10px;
+        }
+        .content-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #004F9F;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .read-more:hover {
+            background-color: #003D7F;
+        }
+        /* News Section */
+        .news-section {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #e0e0e0;
+        }
+        .news-section h2 {
+            font-size: 24px;
+            color: #003D7F;
+            margin-bottom: 20px;
+        }
+        .news-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        .news-item {
+            width: 600px;
+            background-color: #add8e6; /* Xanh da trời nhạt */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .news-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .news-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .news-item h3 {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .news-item img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        .news-item p {
+            font-size: 14px;
+            padding: 10px;
+            color: #333;
+            margin: 0;
+            text-align: left;
+        }
+        .news-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #008000;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .news-button:hover {
+            background-color: #005F00;
+        }
+        /*đoạn màu chữ và canh chữ thanh tiêu đề*/
+        /*css menu*/
+        /*đoạn màu chữ và canh chữ thanh tiêu đề*/
+        .nav-menu {
+            display: flex;
+            justify-content: flex-end; /* Căn phải */
+            padding-right: 0.2cm; /* Cách lề phải 0.2cm */
+        }
+        .dropdown {
+            margin-right: 0.5cm; /* Khoảng cách giữa các mục menu */
+            position: relative;
+            white-space: nowrap; /* Ngăn ngừa xuống dòng */
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0552a4; /* Màu xanh dương nhạt */
+            list-style: none;
+            padding: 5px 0;
+            min-width: max-content; /* Đảm bảo không wrap text */
+            white-space: nowrap; /* Không xuống dòng nếu quá dài */
+        }
+        .dropdown-menu li {
+            padding: 5px 15px;
+        }
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            display: block;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .nav-menu a {
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+
+        }
+        .academic-container:hover, 
+        .academic-container:hover * {
+            background-color: white !important;
+        }
+        section:hover, 
+        section:hover * {
+            background-color: white !important;
+        }
+        /*rê chuột vào new &envent sẽ sáng và to hơn*/
+        .news-events-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .news-events-item:hover {
+            transform: scale(1.05); /* Phóng to nhẹ */
+            background-color: rgba(255, 255, 255, 0.9); /* Làm sáng nền */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng nổi bật */
+        }
+        /*---------------------*/
+        /* Điều chỉnh logo trước footer */
+        .logo-container img {
+            width: calc(100% + 1cm); /* Tăng chiều rộng thêm 1cm */
+            max-width: 100%; /* Không vượt quá kích thước banner */
+            height: auto; /* Giữ tỷ lệ ảnh */
+            object-fit: contain;
+        }
+        /* Giới thiệu về UHS */
+        .uhs-intro {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Chia layout */
+        .uhs-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 20px;
+        }
+        /* Phần nội dung (1/3 bề ngang) */
+        .uhs-text {
+            flex: 1;
+            max-width: 33.33%;
+            text-align: justify;
+        }
+        /* Tiêu đề GIỚI THIỆU VỀ UHS */
+        .uhs-title {
+            color: #5C92D1;
+            font-size: 20px;
+            margin-bottom: 10px;
+            padding-left: 1cm;
+        }
+        /* Lịch sử hình thành thẳng hàng với "Ban Giám Hiệu" */
+        .history-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #5C92D1;
+            margin-bottom: 5px;
+        }
+        /* Đoạn trích dẫn nghiêng, căn chỉnh thẳng hàng */
+        .quote-text {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #5C92D1;
+            text-align: justify;
+            font-style: italic;
+        }
+        /* Danh sách các mục */
+        .uhs-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        /* Dấu + khoanh tròn và cách chữ 0,4cm */
+        .uhs-list li {
+            font-size: 14px;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            color: #5C92D1;
+        }
+        /* Dấu + tròn */
+        .circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #5C92D1;
+            color: white;
+            text-align: center;
+            line-height: 18px;
+            font-weight: bold;
+            margin-right: 0.4cm;
+            display: inline-block;
+        }
+        /* Link */
+        .uhs-list li a {
+            text-decoration: none;
+            color: #004F9F;
+            font-weight: bold;
+        }
+        .uhs-list li a:hover {
+            text-decoration: underline;
+        }
+        /* Ảnh (2/3 bề ngang) */
+        .uhs-image {
+            flex: 2;
+            max-width: 66.66%;
+            text-align: center;
+        }
+        .uhs-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+        /* Điều chỉnh khoảng cách giữa breadcrumb và phần Lịch sử hình thành */
+        .breadcrumb-container {
+            width: 80%;
+            margin: 0 auto;
+            padding-bottom: 0;
+        }
+        .breadcrumb {
+            font-size: 16px;
+            font-weight: bold;
+            color: #87CEEB; /* Xanh dương nhạt */
+            margin-bottom: 0; /* Xóa khoảng cách dưới */
+            padding-bottom: 0; /* Xóa padding dưới */
+            display: flex;
+            align-items: center; /* Căn giữa các thành phần */
+        }
+
+        /* Chỉnh sửa chữ HOME */
+        .breadcrumb-home {
+            font-size: 20px; /* HOME to hơn */
+            font-weight: bold;
+            color: #168ebd; /* Xanh dương nhạt */
+            text-decoration: none !important; /* Bỏ gạch chân */
+        }
+        /* Chỉnh GIỚI THIỆU VỀ UHS */
+        .breadcrumb-title {
+            font-size: 16px; /* Nhỏ hơn HOME */
+            color: #168ebd; /* Xanh dương nhạt */
+        }
+        /* Biểu tượng ">" căn giữa */
+        .breadcrumb-divider {
+            margin: 0 5px; /* Giảm khoảng cách */
+        }
+
+        /* Điều chỉnh khoảng cách với phần Lịch sử hình thành */
+        .uhs-intro {
+            margin-top: 0 !important; /* Xóa khoảng cách trên */
+            padding-top: 0 !important;
+        }
+        .history-title {
+            margin-top: 3px; /* Hoặc 0 nếu muốn sát hoàn toàn */
+            padding-top: 0;
+        }
+        .justified-text {
+            margin-top: 3px; /* Hoặc 0 nếu muốn sát hoàn toàn */
+            padding-top: 0;
+        }
+        .image-1-1 {
+            margin-top: 30px; /* Đẩy xuống 1.5cm */
+        }
+        .mission-vision {
+            width: 100%;
+            max-width: 500px; /* Giới hạn chiều rộng để nội dung xếp theo cột */
+            margin: 0 auto; /* Căn giữa */
+            text-align: center;
+        }
+        .mission-vision .title {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5a5a8c; /* Màu xanh dương nhạt */
+        }
+        .mission-vision .content {
+            display: flex;
+            flex-direction: column; /* Sắp xếp theo chiều dọc */
+            gap: 20px; /* Khoảng cách giữa các phần */
+        }
+        .mission-vision .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .mission-vision .item img {
+            width: 100%;
+            max-width: 400px; /* Định dạng kích thước ảnh */
+            height: auto;
+            border-radius: 5px;
+        }
+        .mission-vision .text {
+            font-size: 16px;
+            font-weight: normal;
+            color: #333;
+            margin-top: 10px;
+        }
+        .mission-vision .text.highlight {
+            font-weight: bold;
+            color: #0056b3; /* Xanh dương đậm hơn */
+        }
+        .history-section {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px; /* Khoảng cách giữa ảnh và nội dung */
+        }
+        .image-container {
+            max-width: 500px;
+        }
+        .history-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            margin-top: 10px; /* Đẩy ảnh xuống 1cm */
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* Đẩy menu về bên phải */
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 0.2cm; /* Cách lề phải 0.2cm */
+        }
+
+        .navbar li {
+            margin-left: 0.5cm; /* Khoảng cách giữa các mục */
+            font-size: 12px; /* Thu nhỏ chữ */
+            white-space: nowrap; /* Không cho xuống dòng */
+        }
+        .navbar li ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: transparent; /* Trong suốt */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Ẩn mặc định */
+        }
+        .navbar li:hover ul {
+            display: block; /* Hiện danh sách khi hover */
+        }
+        .navbar li ul li {
+            padding: 10px 15px;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .navbar li ul li:hover {
+            transform: scale(1.1); /* To lên */
+            color: yellow; /* Màu sáng lên */
+        }
+        @font-face {
+            font-family: "Copperplate Gothic Light";
+            src: url("../fonts/copperplate-gothic-light.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+        h2,h3 {
+            font-family: "Copperplate Gothic Light", sans-serif;
+        }
+        h4{
+            font-family: " Arial", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="../home/Home.html" target="_blank">
+                <img src="../banner.png" alt="Hình ảnh thay thế cho video">
+            </a>
+        </div>     
+        <div class="header-top">
+            <input type="text" placeholder="Tìm kiếm...">
+            <select>
+                <option>VI</option>
+                <option>EN</option>
+            </select>
+            <button>Login</button>
+        </div>
+    </header>
+    <!-- Navigation -->
+    <nav class="nav-menu">
+        <div class="dropdown">
+            <a href="../AboutUHS/AboutUHS.html">About UHS</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">Vision & Mission</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Academics/Academics.html">Academics</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Admissions</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+                <li><a href="#">Admission and Registration</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Student life/Student life.html">Student </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+                <li><a href="#">Affiliated Programme</a></li>
+                <li><a href="#">Exchange Programme</a></li>
+                <li><a href="#">Education Resources</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Library & Resources</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Research</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">CGRH</a></li>
+                <li><a href="#">VNUHCM Journal of Health Sciences</a></li>
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">International Relations</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../News&Events/UHS News & Events.html">News & Events</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>    
+    <!-- Breadcrumb điều hướng -->
+    <div class="breadcrumb-container">
+        <br>
+       <h3><p class="breadcrumb">
+            <a href="../home/Home.html" class="breadcrumb-home">HOME</a> 
+            <span class="breadcrumb-divider">&gt;</span>
+            <span class="breadcrumb-title">ABOUT UHS</span></h3> 
+        </p>
+    </div>
+    <br>
+    <!-- Nội dung giới thiệu -->
+    <section class="uhs-intro">
+        <div class="uhs-container">
+            <div class="uhs-text">
+                <p class="history-title"><strong>History of formation: </strong></p>
+                <p class="justified-text quote-text">
+                    <i>“VNU-HCM is not only a place for the development of natural sciences, social sciences or management sciences...  
+                        Ultimately, what National University-HCM aims for is human happiness, and health science deserves attention.  
+                        The birth of the Faculty of Medicine is not a sufficient addition, to 'fulfill the role' of a multi-disciplinary, multi-field university of VNU-HCM.  
+                        but first of all for the health of the people".</i>
+                    <br><i>(Associate Professor, Dr. Phan Thanh Binh - Former Director of Vietnam National University-HCM)</i>
+                </p>
+                <ul class="uhs-list">
+                    <li><span class="circle">+</span> <a href="#">Board of Directors </a></li>
+                    <li><span class="circle">+</span> <a href="#">Vision, mission, core values</a></li>
+                    <li><span class="circle">+</span> <a href="#">Organizational structure</a></li>
+                    <li><span class="circle">+</span> <a href="#">Human resources</a></li>
+                    <li><span class="circle">+</span> <a href="#">Scientific Council</a></li>
+                    <li><span class="circle">+</span> <a href="#">Ethics Council</a></li>
+                </ul>
+            </div>
+            <div class="uhs-image">
+                <img src="1.1.png" class="image-1-1">
+                <h4>History of School of Medicine - VNUHCM<br></h4>
+                <a style="font-family: Arial; font-size: 12px;">
+                    Preparatory process
+                    Since the very beginning of the establishment of VNUHCM, the policy, and determination to build the School of Medicine and the affiliated General Hospital have been made/adopted and mentioned in the Report on Reviewing and Adjusting the Construction Investment Project of VNUHCM in December 2010. Assoc. Prof. Dr. Phan Thanh Binh, Member of the Party Central Committee and Director of VNUHCM (2007–2012) stressed this in numerous meetings to promote the project:
+                    “VNUHCM is not simply a site/destination of development of natural science, social science, or management science, and so on. Human happiness is the last thing the VNUHCM aims at, and health science deserves (adequate) attention. The establishment of the VNUHCM School of Medicine is not an adequate addition to a sufficient “role” as a multidisciplinary and multidisciplinary institution, but first and foremost for public health.
+                    The Board of Regents of VNUHCM was well aware that the establishment of the School of Medicine is a complicated and tough task because it involves human life. As a result, they were of great caution and deliberation. Such was the intention and aspiration, but how to implement them and what to put the specific actions into practice while there were still many challenges related to money/capital, experience, and manpower. Accordingly, numerous gradual, adequate, and sustainable steps had to be taken. As a result, the first stage of project development only focused on establishing strategic partnerships with local and foreign medical institutions while aggressively utilizing the assistance of the Vietnam Ministry of Health and the Department of Health of Ho Chi Minh City, and consulting industry professionals. This preparatory procedure took nearly ten years.
+                    When the conditions for the establishment of the School of Medicine and health sciences were favorable in 2008, VNUHCM began strongly promoting the preparation for the establishment of the School of Medicine by inviting leading experts for further advice such as Prof. Dr. Pham Manh Hung, Former Deputy Head of the Central Propaganda Committee, Former Deputy Minister of Health; Prof. Dr. Pham Gia Khanh, Former Director of Military Medical Academy; Prof. Dr. Dang Van Phuoc, Rector of the University of Medicine and Pharmacy in Ho Chi Minh City; Prof. Dr. Truong Dinh Kiet, Former Vice Rector of the University of Medicine and Pharmacy in Ho Chi Minh City; Prof. Dr. Vu Duc Moi, Former Deputy Director of Military Medical Academy; Prof. Dr. Hoang Trong Kim, Head of Pediatrics Department of the University of Medicine and Pharmacy in Ho Chi Minh City; Assoc. Prof. Dr. Nguyen The Hiep, Former Director of Center for Training and Nurturing Medical Staff in HCMC; Assoc. Prof. Dr. Vu Thi Nhung, Former Director of Hung Vuong Obstetrics and Gynecology Hospital; Assoc. Prof. Dr. Dao Van Long, Vice Rector of Hanoi Medical University; Dr. Vu Cong Lap, Former Deputy Director of Military Science Academy; Dr. Second Degree Specialist Nguyen The Dung, Former Director of HCMC Department of Health, and so on.
+                    The School of Medicine and VNUHCM were consistently cautious about significant areas, particularly the later opening of disciplines and establishment of faculties. Opening/Setting up Pharmacy and accepting its students was carried out in 2016 after having fulfilled all requirements for people, programs, and facilities… In particular, it was not until Assoc. Prof. Dr. Le Minh Tri, a recognized authority/expert in pharmacy, was allowed by the University of Medicine and Pharmacy in Ho Chi Minh City was VNUHCM permitted to establish new disciplines. The first general medicine training course (Med2010) graduated this year as well, which meant that the School of Medicine completed its first cycle of general medicine training. This gave the School of Medicine important management and training skills.
+                    Concerns
+                    In order to evaluate the feasibility and science of the project, VNUHCM established a Scientific Council to appraise the project to establish the School of Medicine and Hospital under the VNUHCM under Decision No. November 21, 2008 signed by Assoc. Prof. Dr. Huynh Thanh Dat.
+                    There were several indications of advantages during the project assessment council meeting while examining the conditions of resources, such as available facilities and the support of system member unit system. However, a number of top specialists expressed numerous reservations as well. Questions centered on how to create an organic teaching team, which hospitals for clinical practice, how to guarantee the quality of training, the requirement for outputs, and how to connect with the national health system. Many people had doubts about the viability of the school’s modular integrated general medicine curriculum because it seemed impossible to implement a cutting-edge innovation program at a single hospital. Even the only unit that applied for the block-based integrated program before was Can Tho University of Medicine and Pharmacy. It returned to the annual training program in 2012.
+                </a>
+            </div>
+        </div>
+    </section>
+    <section style="background-color: #ffffff; padding: 30px 0; text-align: center;">
+        <!-- Logo container -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 90%; margin: 10px auto;">
+            <!-- Row 1 -->
+            <div class="logo-container" style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 0; padding: 0;">
+                <img src="../home/caclogo.png" alt="VNU Logo" class="logo" 
+                     style="max-width: calc(100% - 3cm); margin-left: 3cm; margin-right: 3cm;">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background-color: #003366; color: white; padding: 40px 20px; margin-left: 3cm; margin-right: 3cm;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <!-- Logo and Address -->
+            <div style="flex: 1; min-width: 300px; margin-bottom: 20px; font-size: 12px;">
+                <img src="../News&Events/logo2.jpg" alt="University Logo" style="width: 250px; margin-bottom: 20px;">
+                <p>
+                    <strong>University of Health Sciences</strong><br>
+                    YAI Administration Building,<br>
+                    National University Ho Chi Minh Urban Area,<br>
+                    Hai Thuong Lan Ong Street,<br>
+                    Dong Hoa, Di An, Binh Duong, Vietnam.<br>
+                    (028) 7102 1212 (Administration)<br>
+                    (028) 7101 8787 (Admissions)
+                </p>
+                <!-- Social Media Icons -->
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="../News&Events/hhhhh.png" alt="Facebook" style="width: 200px;">
+                    </a>
+                </div>
+            </div>
+            <!-- Navigation Links -->
+            <div style="flex: 2; min-width: 600px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                <!-- Explore Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Explore</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">News</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Careers</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Colleges</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Campuses</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Student Support Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Student Support</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Registrar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Bursar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Student Affairs</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Housing and Food Services</a></li>
+                    </ul>
+                </div>
+                <!-- Quick Links Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Quick Links</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Maps</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Directory</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Libraries</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Academic Calendar</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Health</a></li>
+                    </ul>
+                </div>
+                <!-- Resources Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Resources</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Prospective Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Current Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">International Students</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Visitors and Military</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Faculty and Staff</a></li>
+                    </ul>
+                </div>
+                <!-- Stay Connected Section -->
+                <div style="flex: 1; min-width: 150px;">
+                    <h5 style="margin-bottom: 10px; padding-bottom: 5px;">Stay Connected</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px;">
+                        <li><a href="#" style="color: white; text-decoration: none;">Email / Hotlines</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Emergency Notifications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">UHS Go</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Strategic Communications</a></li>
+                        <li><a href="#" style="color: white; text-decoration: none;">Police</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #004080; padding-top: 20px; font-size: 12px;">
+            <p>Copyright © 2024 by University of Health Sciences. All rights reserved.</p>
+        </div>
+    </footer> 
+</html>
