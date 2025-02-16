@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalSlides = slides.length;
     const slider = document.getElementById("slider");
     const dotsContainer = document.querySelector(".dot-container");
-
     // Tạo chấm nhỏ dưới ảnh
     dotsContainer.innerHTML = ""; 
     for (let i = 0; i < totalSlides; i++) {
@@ -14,29 +13,23 @@ document.addEventListener("DOMContentLoaded", function () {
         dotsContainer.appendChild(dot);
     }
     const dots = document.querySelectorAll(".dot");
-
     function updateSlider() {
         slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
         dots.forEach(dot => dot.classList.remove("active"));
         dots[currentIndex].classList.add("active");
     }
-
     function nextSlide() {
         currentIndex = (currentIndex + 1) % totalSlides;
         updateSlider();
     }
-
     function prevSlide() {
         currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
         updateSlider();
     }
-
     document.getElementById("prev").addEventListener("click", prevSlide);
     document.getElementById("next").addEventListener("click", nextSlide);
-
     // Tự động chạy ảnh sau 3 giây
     let slideInterval = setInterval(nextSlide, 3000);
-
     // Khi bấm vào chấm nhỏ, chuyển đến ảnh tương ứng
     dots.forEach((dot, index) => {
         dot.addEventListener("click", () => {
@@ -52,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const textContainer = document.getElementById("text-container");
     const prevButton = document.getElementById("prev-content");
     const nextButton = document.getElementById("next-content");
-
     const contentData = [
         {
             media: '<img src="home/2.1.jpg" alt="Liver Cancer Research" class="media">',
@@ -72,30 +64,40 @@ document.addEventListener("DOMContentLoaded", function () {
                 New therapies have shown promising results in clinical trials, providing hope for millions of patients worldwide.</p>`
         }
     ];
-    
     let contentIndex = 0;
     function updateContent() {
-        mediaContainer.innerHTML = contentData[contentIndex].media;
+        mediaContainer.innerHTML = contentData[currentIndex].media;
         textContainer.innerHTML = `
             <div class="content-box">
-                <div class="title">${contentData[contentIndex].title}</div>
-                <div class="context">${contentData[contentIndex].text}</div>
+                <div class="title">${contentData[currentIndex].title}</div>
+                <div class="context">${contentData[currentIndex].text}</div>
             </div>
         `;
-    }
+        // Kiểm tra nếu media là ảnh hoặc video
+        let img = mediaContainer.querySelector("img");
+        let iframe = mediaContainer.querySelector("iframe");
     
+        if (img) {
+            img.onload = function () {
+                console.log("Hình ảnh đã tải thành công:", img.src);
+            };
+            img.onerror = function () {
+                console.error("Lỗi tải ảnh:", img.src);
+            };
+        }
+        if (iframe) {
+            console.log("Iframe đã tải thành công:", iframe.src);
+        }
+    }
     function nextContent() {
         contentIndex = (contentIndex + 1) % contentData.length;
         updateContent();
     }
-    
     function prevContent() {
         contentIndex = (contentIndex - 1 + contentData.length) % contentData.length;
         updateContent();
     }
-
     nextButton.addEventListener("click", nextContent);
     prevButton.addEventListener("click", prevContent);
-
     setInterval(nextContent, 3000);
 });
