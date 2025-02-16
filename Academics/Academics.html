@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Health Sciences</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .section {
+            padding: 15px;
+            margin: 0; /* Xóa khoảng cách giữa các phần */
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+            text-align: center;
+        }
+        
+        .title {
+            background-color: #ADD8E6; /* Xanh da trời nhạt */
+            font-weight: bold;
+        }
+        .context {
+            background-color: #87CEEB; /* Xanh da trời đậm hơn */
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+        /* Header */
+        header {
+            position: relative;
+            height: 80vh; /* Giữ nguyên chiều cao của header */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Ẩn các phần background vượt ra ngoài */
+        }
+        .header-container {
+            width: 80%; /* Thu nhỏ chiều ngang */
+            height: 100%; /* Giữ nguyên chiều cao */
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%); /* Căn giữa theo chiều ngang */
+            overflow: hidden; /* Ẩn phần video dư ra ngoài */
+        }
+        .header-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo video phủ đầy khung và không méo hình */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* Góc phải trên cùng */
+        .header-top {
+            position: absolute;
+            top: 10px;
+            right: 150px; /* Dịch chuyển vào bên trái thêm */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-top input[type="text"] {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .header-top select {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        .header-top button {
+            padding: 5px 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #004F9F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-top button:hover {
+            background-color: #003D7F;
+        }
+        header h1 {
+            z-index: 1;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header p {
+            z-index: 1;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        nav {
+            background-color: #004F9F;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+            margin: 0 auto; /* Căn giữa */
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%; /* Đảm bảo menu con nằm trong khung 80% */
+            justify-content: space-around; /* Phân bổ đều khoảng cách giữa các mục */
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: #005BB5;
+            border-radius: 5px;
+        }
+        /* Academic Section */
+        
+        .academic-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px auto;
+            width: 80%; /* Đồng bộ chiều rộng với header */
+        }
+        .academic-item {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .academic-item:hover {
+            transform: scale(1.1);
+            background-color: #B0E0E6; /* Màu nền sáng hơn khi hover */
+        }
+        
+        .academic-item img {
+            width: 100%;
+            max-width: 311px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .academic-item h3 {
+            background-color: transparent !important; /* Xóa màu nền xanh nhạt */
+            color: black !important; /* Đảm bảo chữ màu đen */
+            padding: 10px 0; /* Để giữ khoảng cách nếu cần */
+        }
+
+        /* Content Section */
+        .content-section {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            margin: 40px auto;
+            width: 80%;
+        }
+        /* Bên trái */
+        .content-left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-left img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .content-left .text {
+            margin-top: 10px; /* Giảm khoảng cách để sát hơn */
+        }
+        .content-right {
+            flex: 1;
+      
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .content-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #004F9F;
+            margin-bottom: 10px;
+        }
+        .content-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #004F9F;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .read-more:hover {
+            background-color: #003D7F;
+        }
+        /* News Section */
+        .news-section {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #e0e0e0;
+        }
+        .news-section h2 {
+            font-size: 24px;
+            color: #003D7F;
+            margin-bottom: 20px;
+        }
+        .news-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        .news-item {
+            width: 600px;
+            background-color: #add8e6; /* Xanh da trời nhạt */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .news-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .news-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .news-item h3 {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .news-item img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        .news-item p {
+            font-size: 14px;
+            padding: 10px;
+            color: #333;
+            margin: 0;
+            text-align: left;
+        }
+        .news-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #008000;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .news-button:hover {
+            background-color: #005F00;
+        }
+        /*css menu*/
+        /*đoạn màu chữ và canh chữ thanh tiêu đề*/
+        .nav-menu {
+            display: flex;
+            justify-content: flex-end; /* Căn phải */
+            padding-right: 0.2cm; /* Cách lề phải 0.2cm */
+        }
+        .dropdown {
+            margin-right: 0.5cm; /* Khoảng cách giữa các mục menu */
+            position: relative;
+            white-space: nowrap; /* Ngăn ngừa xuống dòng */
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0552a4; /* Màu xanh dương nhạt */
+            list-style: none;
+            padding: 5px 0;
+            min-width: max-content; /* Đảm bảo không wrap text */
+            white-space: nowrap; /* Không xuống dòng nếu quá dài */
+        }
+        .dropdown-menu li {
+            padding: 5px 15px;
+        }
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            display: block;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .nav-menu a {
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+
+        }
+        .academic-container:hover, 
+        .academic-container:hover * {
+            background-color: white !important;
+        }
+        section:hover, 
+        section:hover * {
+            background-color: white !important;
+        }
+        /*rê chuột vào new &envent sẽ sáng và to hơn*/
+        .news-events-item {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .news-events-item:hover {
+            transform: scale(1.05); /* Phóng to nhẹ */
+            background-color: rgba(255, 255, 255, 0.9); /* Làm sáng nền */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng nổi bật */
+        }
+        /*---------------------*/
+        /* Điều chỉnh logo trước footer */
+        .logo-container img {
+            width: calc(100% + 1cm); /* Tăng chiều rộng thêm 1cm */
+            max-width: 100%; /* Không vượt quá kích thước banner */
+            height: auto; /* Giữ tỷ lệ ảnh */
+            object-fit: contain;
+        }
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 18px;
+            color: #004F9F;
+            margin-bottom: 10px; /* Giảm khoảng cách để sát hơn */
+        }
+        .breadcrumb a {
+            text-decoration: none;
+            color: #004F9F;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content */
+        .content {
+            display: flex;
+            gap: 10px; /* Giảm khoảng cách giữa hai bên */
+            align-items: flex-start; /* Đẩy phần hình ảnh và nội dung lên cao hơn */
+        }
+        /* Bên trái */
+        .content-left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-left img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .content-left .text {
+            margin-top: 10px; /* Giảm khoảng cách để sát hơn */
+        }
+        /* Tiêu đề và mô tả */
+        .medical-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #004F9F;
+            margin-bottom: 5px; /* Giảm khoảng cách */
+        }
+        .medical-description {
+            font-size: 14px;
+            margin-bottom: 10px; /* Giảm khoảng cách */
+        }
+        .see-more {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                background: transparent; /* Nền trong suốt */
+                color: #2b9f31; /* Màu chữ xanh dương */
+                font-weight: bold;
+                transition: color 0.3s ease-in-out;
+                }
+        .see-more img {
+            width: 20px;  /* Kích thước logo bằng background */
+            height: 20px;
+            margin-right: 8px; /* Tạo khoảng cách giữa logo và chữ */
+        }
+        .see-more:hover {
+            color: #5c96a0; /* Màu chữ hơi đậm hơn khi hover */
+        }
+        /* Bên phải */
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Khung chứa 3 ảnh */
+        .image-container {
+            background: transparent; /* Làm nền trong suốt */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Giảm khoảng cách giữa các ảnh */
+        }
+        /* Ảnh con */
+        .image-box {
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-box img {
+            width: 200px; /* Giảm còn 1/4 */
+            height: 200px; /* Giảm còn 1/4 */
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Khi rê chuột vào từng ảnh, chỉ ảnh đó sáng lên */
+        .image-box:hover img {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .image-box p {
+            margin-top: 5px;
+            font-weight: bold;
+            color: #A52A2A;
+            text-align: center;
+        }
+        .image-text {
+            position: absolute;
+            top: -20px; /* Đưa lên phía trên ảnh */
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgb(55, 131, 156);
+            font-size: 24px; /* Gấp đôi kích thước mặc định (tăng lên nếu cần) */
+            font-weight: bold;
+            text-transform: uppercase; /* Viết hoa toàn bộ */
+            text-align: center;
+            white-space: nowrap; /* Tránh xuống dòng */
+            background-color: transparent; /* Nền trong suốt */
+        }
+        .image-box {
+            position: relative; /* Để căn dòng chữ theo ảnh */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gradient-background {
+            background: linear-gradient(to bottom, white 10%, #e9f2f3 50%, #b1f0f6 100%); 
+            /* Trắng (10%) → Xanh nhạt (50%) → Xanh dương đậm (100%) */
+            padding: 20px; 
+            border-radius: 8px;
+            transition: background 0.5s ease-in-out; /* Hiệu ứng chuyển đổi mượt */
+        }
+        .see-more-container {
+            display: flex;
+            justify-content: flex-end; /* ĐẨY TOÀN BỘ PHẦN SEE MORE VỀ BÊN PHẢI */
+            align-items: center;
+            padding: 10px;
+            width: 100%; /* Đảm bảo chiếm toàn bộ chiều ngang */
+        }
+        /* Thu nhỏ chữ và thụt lùi 2cm */
+        .sub-info {
+            margin-left: 2cm; /* Thụt lùi so với phần mẹ */
+            font-size: 12px; /* Thu nhỏ hơn 2 size */
+            color: #555; /* Màu xám nhẹ */
+        }
+
+        /* Danh sách menu dọc */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu-list li {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        /* Nút "+" có vòng tròn và nền đen */
+        .circle-plus {
+            width: 25px;
+            height: 25px;
+            background-color: black; /* Nền đen */
+            color: white; /* Chữ trắng */
+            border-radius: 50%; /* Làm tròn */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 10px; /* Cách chữ một khoảng */
+        }
+
+        /* Liên kết của các mục */
+        .menu-list a {
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            font-weight: bold;
+        }
+
+        .menu-list a:hover {
+            color: blue; /* Hiệu ứng hover */
+        }
+
+
+        /* Thiết kế mục danh sách có vòng tròn và nền đen */
+        .menu-item {
+            font-size: 16px;
+            font-weight: bold;
+            background-color: black; /* Nền đen */
+            color: white; /* Chữ trắng */
+            padding: 10px 15px;
+            border-radius: 20px; /* Bo tròn để tạo vòng tròn */
+            width: fit-content;
+            margin: 5px 0;
+            display: inline-block;
+        }
+        @font-face {
+            font-family: "Copperplate Gothic Light";
+            src: url("../fonts/copperplate-gothic-light.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+        h2,h3 {
+            font-family: "Copperplate Gothic Light", sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="../home/Home.html" target="_blank">
+                <img src="../banner.png" alt="Hình ảnh thay thế cho video">
+            </a>
+        </div>
+        <div class="header-top">
+            <input type="text" placeholder="Search ...">
+            <select>
+                <option>VI</option>
+                <option>EN</option>
+            </select>
+            <button>Login</button>
+        </div>
+    </header>
+    <!-- Navigation -->
+    <nav class="nav-menu">
+        <div class="dropdown">
+            <a href="../AboutUHS/AboutUHS.html">About UHS</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">History</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">Vision & Mission</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Academics/Academics.html">Academics</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Admissions</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+                <li><a href="#">Admission and Registration</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../Student life/Student life.html">Student </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+                <li><a href="#">Affiliated Programme</a></li>
+                <li><a href="#">Exchange Programme</a></li>
+                <li><a href="#">Education Resources</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Library & Resources</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Tuition Fee</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="#">Research</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">CGRH</a></li>
+                <li><a href="#">VNUHCM Journal of Health Sciences</a></li>
+                <li><a href="#">Medical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">Pharmaceutical Sciences</a></li>
+                <li><a href="#">International Relations</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a href="../News&Events/UHS News & Events.html">News & Events</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Undergraduate</a></li>
+                <li><a href="#">Postgraduate</a></li>
+                <li><a href="#">Continuing Education</a></li>
+            </ul>
+        </div>
+    </nav>    
+    <br>
+    <div class="container">
+        <!-- Điều hướng -->
+        <div class="breadcrumb">
+          <h3>  <a href="../home/Home.html">Home</a> > <a href="#">Academics</a></h3>
+        </div>
+        <!-- Nội dung chính -->
+        <div class="content">
+            <!-- Bên trái -->
+            <div class="content-left"> 
+                <img src="./2.1.png" alt="Hình ảnh 2.1">
+                <div class="text">
+                    <br>
+                    <h3>                
+                        <a>DOCTOR OF MEDICINE PROGRAMME</a>
+                    </h3>
+                    <div class="gradient-background">
+                        <!-- Các phần có nút + -->
+                        <ul class="menu-list">
+                            <li><span class="circle-plus">-</span> <a href="#">General Information</a></li>
+                            <div class="sub-info">
+                                <p><strong>Training programme:</strong> Doctor of Medicine</p>
+                                <p><strong>Training level:</strong> Undergraduate</p>
+                                <p><strong>Major:</strong> Health Science</p>
+                                <p><strong>Major code:</strong> 7720101</p>
+                                <p><strong>Type of education:</strong> Full-time</p>
+                                <p><strong>Training duration:</strong> 6 years</p>
+                            </div>
+                            <li><span class="circle-plus">+</span> <a href="#">Qualification</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Curriculum Structure</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Our Team</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Assessment</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">High Light</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Admission</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Contact</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">FAQs</a></li>
+                        </ul>
+                    <br>
+                    <h3>                
+                            <a>BACHELOR OF NURSING</a>
+                    </h3>
+                    <br>
+                            <!-- Các phần có nút + -->
+                        <ul class="menu-list">
+                            <li><span class="circle-plus">-</span> <a href="#">General Information</a></li>
+                            <div class="sub-info">
+                                <p><strong>Training programme:</strong> Doctor of Medicine</p>
+                                <p><strong>Training level:</strong> Undergraduate</p>
+                                <p><strong>Major:</strong> Health Science</p>
+                                <p><strong>Major code:</strong> 7720101</p>
+                                <p><strong>Type of education:</strong> Full-time</p>
+                                <p><strong>Training duration:</strong> 6 years</p>
+                            </div>
+                            <li><span class="circle-plus">+</span> <a href="#">Qualification</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Curriculum Structure</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Our Team</a></li>
+                            <li><span class="circle-plus">+</span> <a href="#">Assessment</a></li>
+                        </ul>
+                        <div class="see-more-container">
+                            <a href="#" class="see-more">
+                                <img src="../News&Events/logobe.jpg" alt="Logo"> <!-- Ảnh nhỏ bên trái -->
+                                SEE MORE
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>            
+            <!-- Bên phải -->
+            <div class="content-right">
+                <div class="image-container">
+                    <div class="image-box">
+                    <h3><div class="image-text">OUR TEAM</div> <!-- Dòng chữ trên đầu --></h3>   
+                        <br>
+                        <img src="./2.2.png" alt="Hình ảnh minh họa 1">
+                        <p>DANG VAN PHUOC MD.PHD</p>
+                    </div>
+                    <div class="image-box">
+                        <img src="./2.3.png" alt="Hình ảnh minh họa 2">
+                        <p>LE QUANG NGHIA MD.PHD</p>
+                    </div>
+                    <div class="image-box">
+                        <img src="./2.5.png" alt="Hình ảnh minh họa 3">
+                        <p>TRAN QUYET TIEN  MD.PHD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<!-- Section Before Footer -->
+<section style="background-color: #ffffff; padding: 0px 0; text-align: center;">
+    <!-- Logo container -->
+    <div class="logo-container">
+        <img src="../home/logo.png" alt="VNU Logo">
+    </div>
+</section>
+<!-- Footer -->
+<footer style="background-color: #003366; color: white; padding: 40px 20px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <!-- Logo and Address -->
+        <div style="flex: 1; min-width: 300px; margin-bottom: 20px;font-size: 12px;">
+            <img src="../News&Events/logo2.jpg" alt="University Logo" style="width: 250px; margin-bottom: 20px;">
+            <p>
+                <strong>University of Health Sciences</strong><br>
+                YAI Administration Building,<br>
+                National University Ho Chi Minh Urban Area,<br>
+                Hai Thuong Lan Ong Street,<br>
+                Dong Hoa, Di An, Binh Duong, Vietnam.<br>
+                (028) 7102 1212 (Administration)<br>
+                (028) 7101 8787 (Admissions)
+            </p>
+            <!-- Social Media Icons -->
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <a href="#" style="text-decoration: none;">
+                    <img src="../News&Events/hhhhh.png" alt="Facebook" style="width: 200px;">
+                </a>
+               
+            </div>
+        </div>
+        <!-- Navigation Links -->
+        <div style="flex: 2; min-width: 600px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <!-- Explore Section -->
+            <div style="flex: 1; min-width: 150px;">
+                <h5 style="margin-bottom: 10px;   padding-bottom: 5px;">Explore</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;font-size: 12px;">
+                    <li><a href="#" style="color: white; text-decoration: none;">News</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Careers</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Colleges</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Campuses</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Student Support Section -->
+            <div style="flex: 1; min-width: 150px;">
+                <h5 style="margin-bottom: 10px;  padding-bottom: 5px;">Student Support</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;font-size: 12px;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Registrar</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Bursar</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Student Affairs</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Housing and Food Services</a></li>
+                </ul>
+            </div>
+            <!-- Quick Links Section -->
+            <div style="flex: 1; min-width: 150px;">
+                <h5 style="margin-bottom: 10px;   padding-bottom: 5px;">Quick Links</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;font-size: 12px;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Maps</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Directory</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Libraries</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Academic Calendar</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">UHS Health</a></li>
+                </ul>
+            </div>
+            <!-- Resources Section -->
+            <div style="flex: 1; min-width: 150px;">
+                <h5 style="margin-bottom: 10px;   padding-bottom: 5px;">Resources</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;font-size: 12px;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Prospective Students</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Current Students</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">International Students</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Visitors and Military</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Faculty and Staff</a></li>
+                </ul>
+            </div>
+            <!-- Stay Connected Section -->
+            <div style="flex: 1; min-width: 150px;">
+                <h5 style="margin-bottom: 10px;   padding-bottom: 5px;">Stay Connected</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;font-size: 12px;">
+                    <li><a href="#" style="color: white; text-decoration: none;">Email / Hotlines</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Emergency Notifications</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">UHS Go</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Strategic Communications</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none;">Police</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Bottom -->
+    <div style="text-align: center; margin-top: 20px; border-top: 1px solid #004080; padding-top: 20px;font-size: 12px;">
+        <p>Copyright © 2024 by University of Health Sciences. All rights reserved.</p>
+    </div>
+</footer>
+</html>
